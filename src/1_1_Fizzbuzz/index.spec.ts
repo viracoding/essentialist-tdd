@@ -28,6 +28,8 @@ describe('fizzbuzz', () => {
         expect(fizzbuzz(43)).toBe('43')
     })
 
+    // Error cases
+
     it('should be able to return an error for negative numbers (including zero)', () => {
         expect(() => fizzbuzz(-10)).toThrow()
     })
