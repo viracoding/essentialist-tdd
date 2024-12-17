@@ -27,4 +27,8 @@ describe('fizzbuzz', () => {
     it('should be able to return the number as string, for all other cases', () => {
         expect(fizzbuzz(43)).toBe('43')
     })
+
+    it('should be able to return an error for negative numbers (including zero)', () => {
+        expect(fizzbuzz(-10)).toBeUndefined()
+    })
 })
