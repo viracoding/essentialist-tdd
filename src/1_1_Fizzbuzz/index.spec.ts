@@ -23,4 +23,8 @@ describe('fizzbuzz', () => {
     it('should be able to return "FizzBuzz" for multiples of both three and five', () => {
         expect(fizzbuzz(45)).toBe('FizzBuzz')
     })
+
+    it('should be able to return the number as string, for all other cases', () => {
+        expect(fizzbuzz(43)).toBe('43')
+    })
 })
