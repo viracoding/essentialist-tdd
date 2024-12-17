@@ -19,4 +19,8 @@ describe('fizzbuzz', () => {
     it('should be able to return "FizzBuzz" for multiples of both three and five', () => {
         expect(fizzbuzz(15)).toBe('FizzBuzz')
     })
+
+    it('should be able to return "FizzBuzz" for multiples of both three and five', () => {
+        expect(fizzbuzz(45)).toBe('FizzBuzz')
+    })
 })
