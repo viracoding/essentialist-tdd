@@ -31,4 +31,8 @@ describe('fizzbuzz', () => {
     it('should be able to return an error for negative numbers (including zero)', () => {
         expect(() => fizzbuzz(-10)).toThrow()
     })
+
+    it('should be able to return an error for numbers greater then 100', () => {
+        expect(() => fizzbuzz(101)).toThrow()
+    })
 })
