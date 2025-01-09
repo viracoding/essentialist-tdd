@@ -8,12 +8,12 @@ describe('password validator', () => {
   })
 
   test('returns invalid password', () => {
-    const validatorResult = PasswordValidator.validate('pass')
+    const validatorResult = PasswordValidator.validate('password')
     expect(validatorResult.result).toBeFalsy();
   })
 
   test('password length should be between 5 and 15 characters long', () => {
-    const validatorResult = PasswordValidator.validate('password123')
+    const validatorResult = PasswordValidator.validate('paSSword123')
     expect(validatorResult.result).toBeTruthy()
   })
 
@@ -28,7 +28,12 @@ describe('password validator', () => {
   })
 
   test('password must contain a digit', () => {
-    const validatorResult = PasswordValidator.validate('password1')
+    const validatorResult = PasswordValidator.validate('Password1')
     expect(validatorResult.result).toBeTruthy()
+  })
+
+  test('password with lowercase letters is invalid', () => {
+    const validatorResult = PasswordValidator.validate('password123')
+    expect(validatorResult.result).toBeFalsy()
   })
 })

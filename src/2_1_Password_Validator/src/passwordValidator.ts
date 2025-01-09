@@ -13,6 +13,10 @@ export class PasswordValidator {
         return /\d/.test(input);
     }
 
+    private static hasUppercase(input: string) {
+        return /[A-Z]/.test(input);
+    }
+
     static validate(input: string): ValidatorResult {
         const errors: ValidatorError[] = [];
         let result = false;
@@ -22,6 +26,10 @@ export class PasswordValidator {
         }
 
         if (!this.hasDigit(input)) {
+            result = false;
+        }
+
+        if (!this.hasUppercase(input)) {
             result = false;
         }
 
