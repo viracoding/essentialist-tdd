@@ -21,4 +21,9 @@ describe('password validator', () => {
     const validatorResult = PasswordValidator.validate('lol')
     expect(validatorResult.result).toBeFalsy()
   })
+
+  test('password with 16 characters should be invalid', () => {
+    const validatorResult = PasswordValidator.validate('lol0123456789lol')
+    expect(validatorResult.result).toBeFalsy()
+  })
 })
