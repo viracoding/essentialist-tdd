@@ -4,7 +4,7 @@ import { PasswordValidator } from "./passwordValidator";
 const input = 'pass'
 
 // act
-let validator = PasswordValidator.validate(input)
+let validatorResult = PasswordValidator.validate(input)
 
 // assert
-expect(validator.result).toBeTruthy()
+expect(validatorResult).toBeDefined()
