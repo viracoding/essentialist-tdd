@@ -6,4 +6,9 @@ describe('password validator', () => {
     const validatorResult = PasswordValidator.validate('pass')
     expect(validatorResult).toBeDefined()
   })
+
+  test('returns invalid password', () => {
+    const validatorResult = PasswordValidator.validate('pass')
+    expect(validatorResult.result).toBeFalsy();
+  })
 })

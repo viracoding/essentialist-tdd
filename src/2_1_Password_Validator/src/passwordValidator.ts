@@ -11,7 +11,7 @@ type ValidatorResult = {
 export class PasswordValidator {
     static validate(input: string): ValidatorResult {
         return {
-            result: true,
+            result: false,
             errors: []
         }
     }
