@@ -11,4 +11,9 @@ describe('password validator', () => {
     const validatorResult = PasswordValidator.validate('pass')
     expect(validatorResult.result).toBeFalsy();
   })
+
+  test('password length should be between 5 and 15 characters long', () => {
+    const validatorResult = PasswordValidator.validate('password')
+    expect(validatorResult.result).toBeTruthy()
+  })
 })
