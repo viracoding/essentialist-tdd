@@ -9,12 +9,20 @@ type ValidatorResult = {
 }
 
 export class PasswordValidator {
+    private static hasDigit(input: string){
+        return /\d/.test(input);
+    }
+
     static validate(input: string): ValidatorResult {
         const errors: ValidatorError[] = [];
         let result = false;
 
         if (input.length >= 5 && input.length <= 15) {
            result = true;
+        }
+
+        if (!this.hasDigit(input)) {
+            result = false;
         }
 
         return {
