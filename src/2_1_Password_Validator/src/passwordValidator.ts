@@ -19,22 +19,30 @@ export class PasswordValidator {
 
     static validate(input: string): ValidatorResult {
         const errors: ValidatorError[] = [];
-        let result = false;
 
-        if (input.length >= 5 && input.length <= 15) {
-           result = true;
+        if (input.length < 5 || input.length > 15) {
+           errors.push({
+               type: 'PasswordLength',
+               message: 'Password length must be between 5 and 15.'
+           })
         }
 
         if (!this.hasDigit(input)) {
-            result = false;
+            errors.push({
+                type: 'PasswordMustContainDigit',
+                message: 'Password must contain at least one digit.'
+            })
         }
 
         if (!this.hasUppercase(input)) {
-            result = false;
+            errors.push({
+                type: 'PasswordMustContainUppercase',
+                message: 'Password must contain at least one uppercase letter.'
+            })
         }
 
         return {
-            result,
+            result: errors.length === 0,
             errors
         }
     }
