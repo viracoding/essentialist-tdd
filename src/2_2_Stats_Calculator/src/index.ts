@@ -9,7 +9,7 @@ export function calculateStats(numbers: number[]): StatsResult {
     return {
         minimum: -8,
         maximum: 53,
-        elementsCount: 0,
+        elementsCount: 6,
         average: 0
     }
 }

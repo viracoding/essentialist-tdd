@@ -10,4 +10,9 @@ describe('stats calculator', () => {
         const result = calculateStats([2, 4, 21, -8, 53, 40])
         expect(result.maximum).toBe(53)
     })
+
+    it('returns 6 as the elements count of the following sequence of integer numbers [2, 4, 21, -8, 53, 40]', () => {
+        const result = calculateStats([2, 4, 21, -8, 53, 40])
+        expect(result.elementsCount).toBe(6)
+    })
 })
