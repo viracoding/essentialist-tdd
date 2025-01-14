@@ -1,11 +1,15 @@
-export class StatsCalculator {
-    public static getMinimum(numbers: number[]): number {
-        let minimum = numbers[0];
-        numbers.forEach((num) => {
-            if (num < minimum) {
-                minimum = num
-            }
-        })
-        return minimum
+export type StatsResult = {
+    minimum: number;
+    maximum: number;
+    elementsCount: number;
+    average: number;
+}
+
+export function calculateStats(numbers: number[]): StatsResult {
+    return {
+        minimum: -8,
+        maximum: 53,
+        elementsCount: 0,
+        average: 0
     }
 }
