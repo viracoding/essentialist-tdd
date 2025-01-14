@@ -15,5 +15,9 @@ describe('stats calculator', () => {
         it('returns 6 as the elements count', () => {
             expect(result.elementsCount).toBe(6)
         })
+
+        it('returns 18.67 as the average', () => {
+            expect(result.average).toBe(18.67)
+        })
     })
 })
