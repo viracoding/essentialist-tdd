@@ -32,16 +32,20 @@ describe('password validator', () => {
   })
 
   test('password with 16 characters should be invalid', () => {
-    const validatorResult = PasswordValidator.validate('lol0123456789lol')
+    const validatorResult = PasswordValidator.validate('thePhysical1234567')
     expect(validatorResult.result).toBeFalsy()
     expect(validatorResult.errors.length).toBeGreaterThanOrEqual(1)
     expect(validatorResult.errors[0].type).toBeDefined()
     expect(validatorResult.errors[0].message).toBeDefined()
   })
 
-  test('password with lowercase letters is invalid', () => {
-    const validatorResult = PasswordValidator.validate('password123')
+  test('returns false because of a lack of a digit', () => {
+    const validatorResult = PasswordValidator.validate('maxwellTheBe')
     expect(validatorResult.result).toBeFalsy()
-    expect(validatorResult.errors.length).toBeGreaterThanOrEqual(1)
+  })
+
+  test('password with lowercase letters is invalid', () => {
+    const validatorResult = PasswordValidator.validate('maxwell1_c')
+    expect(validatorResult.result).toBeFalsy()
   })
 })
