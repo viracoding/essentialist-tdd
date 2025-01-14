@@ -6,10 +6,23 @@ export type StatsResult = {
 }
 
 export function calculateStats(numbers: number[]): StatsResult {
+    let minimum = numbers[0];
+    let maximum = numbers[0];
+    let elementsCount = 0;
+    numbers.forEach((num) => {
+        if (num < minimum) {
+            minimum = num
+        }
+        if (num > maximum) {
+            maximum = num
+        }
+        elementsCount++;
+    })
+
     return {
-        minimum: -8,
-        maximum: 53,
-        elementsCount: 6,
+        minimum,
+        maximum,
+        elementsCount,
         average: 0
     }
 }
