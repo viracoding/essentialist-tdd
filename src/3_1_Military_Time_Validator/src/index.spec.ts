@@ -20,21 +20,12 @@ ResultType {
 import {validateMilitaryTime} from "./index";
 
 describe('military time validator', () => {
-    it('knows that the time is a range', () => {
-        const time = "01:12 - 14:32"
+    it.each([
+        [ '01:12 - 14:32', true ],
+        [ '01:12  14:32', false ],
+        [ '01:12 - 14:32 - 15:55', false ],
+    ])(`knows that "%s" should be: %s`, ( time , validity) => {
         const result = validateMilitaryTime(time)
-        expect(result.valid).toBeTruthy()
-    })
-
-    it('knows that the input is not a range', () => {
-        const time = "01:12 14:32"
-        const result = validateMilitaryTime(time)
-        expect(result.valid).toBeFalsy()
-    })
-
-    it('knows that the input is not a valid range', () => {
-        const time = "01:12 - 14:32 - 15:55"
-        const result = validateMilitaryTime(time)
-        expect(result.valid).toBeFalsy()
+        expect(result.valid).toBe(validity)
     })
 })
