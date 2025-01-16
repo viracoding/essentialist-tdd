@@ -17,7 +17,16 @@ export function validateMilitaryTime(time: string): ResultType {
 
     if (time.split('-').length === 2) {
         const [ startTime, endTime ] = time.split('-')
-        if (startTime.split(':').length !== 2 || endTime.split(':').length !== 2) {
+        if (startTime.split(':').length === 2 && endTime.split(':').length === 2) {
+            const [ startTimeHour, startTimeMinute ] = startTime.split(':');
+            const [ endTimeHour, endTimeMinute ] = endTime.split(':')
+            if (
+                (parseInt(startTimeHour) < 0 || parseInt(startTimeHour) > 23 || parseInt(endTimeHour) < 0 || parseInt(endTimeHour) > 23) ||
+                (parseInt(startTimeMinute) < 0 || parseInt(startTimeMinute) > 59 || parseInt(endTimeMinute) < 0 || parseInt(endTimeMinute) > 59)
+            ) {
+                errors.push(ErrorType.HoursNotValid)
+            }
+        } else {
             errors.push(ErrorType.InputHasNotStartOrEndTime)
         }
     } else {

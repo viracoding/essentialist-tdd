@@ -6,8 +6,8 @@ Examples:
 
 - Check if the input is a range, by parsing the string and checking for "-"
 - The variable should contain two elements, parse them both by ":"
-    - check if the hours are between 00-24
-    - check if the minutes are between 00-60
+    - check if the hours are between 00-23
+    - check if the minutes are between 00-59
 - And then I would compare the hour of first one should be smaller than the hour of the last one
 - If the hours are equal, then compare the minutes, where the first one should be smaller
 
@@ -28,6 +28,16 @@ describe('military time validator', () => {
         [ '01:12 - 1432', false ],
         [ '0112 - 1432', false ],
     ])(`knows that "%s" should be: %s`, ( time , validity) => {
+        const result = validateMilitaryTime(time)
+        expect(result.valid).toBe(validity)
+    })
+
+    it.each([
+        [ '01:12 - 14:32', true ],
+        [ '24:12 - 25:32', false ],
+        [ '00:12 - 24:32', false ],
+        [ '00:62 - 24:32', false ]
+    ])('validates that %s is in between 00-23 results %s', (time, validity) => {
         const result = validateMilitaryTime(time)
         expect(result.valid).toBe(validity)
     })
