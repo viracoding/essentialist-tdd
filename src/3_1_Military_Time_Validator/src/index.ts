@@ -15,22 +15,27 @@ type ResultType = {
 export function validateMilitaryTime(time: string): ResultType {
     const errors: ErrorType[] = []
 
-    if (time.split('-').length === 2) {
-        const [ startTime, endTime ] = time.split('-')
-        if (startTime.split(':').length === 2 && endTime.split(':').length === 2) {
-            const [ startTimeHour, startTimeMinute ] = startTime.split(':');
-            const [ endTimeHour, endTimeMinute ] = endTime.split(':')
-            if (
-                (parseInt(startTimeHour) < 0 || parseInt(startTimeHour) > 23 || parseInt(endTimeHour) < 0 || parseInt(endTimeHour) > 23) ||
-                (parseInt(startTimeMinute) < 0 || parseInt(startTimeMinute) > 59 || parseInt(endTimeMinute) < 0 || parseInt(endTimeMinute) > 59)
-            ) {
-                errors.push(ErrorType.HoursNotValid)
-            }
-        } else {
-            errors.push(ErrorType.InputHasNotStartOrEndTime)
-        }
-    } else {
+    const timeRange = time.split('-');
+    const [ startTime, endTime ] = timeRange;
+
+    const startTimeRange = startTime?.split(':') || [];
+    const [ startTimeHour, startTimeMinute ] = startTimeRange;
+
+    const endTimeRange = endTime?.split(':') || [];
+    const [ endTimeHour, endTimeMinute ] = endTimeRange;
+
+    if (timeRange.length !== 2) {
         errors.push(ErrorType.InputIsNotARange)
+    }
+    if (startTimeRange.length !== 2 || endTimeRange.length !== 2) {
+        errors.push(ErrorType.InputHasNotStartOrEndTime)
+    }
+
+    if (parseInt(startTimeHour) < 0 || parseInt(startTimeHour) > 23 || parseInt(endTimeHour) < 0 || parseInt(endTimeHour) > 23) {
+        errors.push(ErrorType.HoursNotValid)
+    }
+    if (parseInt(startTimeMinute) < 0 || parseInt(startTimeMinute) > 59 || parseInt(endTimeMinute) < 0 || parseInt(endTimeMinute) > 59) {
+        errors.push(ErrorType.MinutesNotValid)
     }
 
     return {
