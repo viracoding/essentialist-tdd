@@ -38,6 +38,13 @@ export function validateMilitaryTime(time: string): ResultType {
         errors.push(ErrorType.MinutesNotValid)
     }
 
+    if (startTimeHour > endTimeHour) {
+        errors.push(ErrorType.ChronologicalInconsistency)
+    }
+    if (startTimeHour === endTimeHour && startTimeMinute > endTimeMinute) {
+        errors.push(ErrorType.ChronologicalInconsistency)
+    }
+
     return {
         valid: errors.length === 0,
         errors
