@@ -28,4 +28,16 @@ describe('military time validator', () => {
         const result = validateMilitaryTime(time)
         expect(result.valid).toBe(validity)
     })
+
+    it('knows that range has valid startTime and endTime', () => {
+        const time = '01:12 - 14:32'
+        const result = validateMilitaryTime(time)
+        expect(result.valid).toBeTruthy();
+    })
+
+    it('knows that range has invalid startTime and endTime', () => {
+        const time = '0112 - 14:32'
+        const result = validateMilitaryTime(time)
+        expect(result.valid).toBeFalsy();
+    })
 })
