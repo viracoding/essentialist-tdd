@@ -19,10 +19,10 @@ export function validateMilitaryTime(time: string): ResultType {
     const [ startTime, endTime ] = timeRange;
 
     const startTimeRange = startTime?.split(':') || [];
-    const [ startTimeHour, startTimeMinute ] = startTimeRange;
+    const [ startTimeHour, startTimeMinute ] = startTimeRange.map(parseInt);
 
     const endTimeRange = endTime?.split(':') || [];
-    const [ endTimeHour, endTimeMinute ] = endTimeRange;
+    const [ endTimeHour, endTimeMinute ] = endTimeRange.map(parseInt);;
 
     if (timeRange.length !== 2) {
         errors.push(ErrorType.InputIsNotARange)
@@ -31,10 +31,10 @@ export function validateMilitaryTime(time: string): ResultType {
         errors.push(ErrorType.InputHasNotStartOrEndTime)
     }
 
-    if (parseInt(startTimeHour) < 0 || parseInt(startTimeHour) > 23 || parseInt(endTimeHour) < 0 || parseInt(endTimeHour) > 23) {
+    if (startTimeHour < 0 || startTimeHour > 23 || endTimeHour < 0 || endTimeHour > 23) {
         errors.push(ErrorType.HoursNotValid)
     }
-    if (parseInt(startTimeMinute) < 0 || parseInt(startTimeMinute) > 59 || parseInt(endTimeMinute) < 0 || parseInt(endTimeMinute) > 59) {
+    if (startTimeMinute < 0 || startTimeMinute > 59 || endTimeMinute < 0 || endTimeMinute > 59) {
         errors.push(ErrorType.MinutesNotValid)
     }
 
