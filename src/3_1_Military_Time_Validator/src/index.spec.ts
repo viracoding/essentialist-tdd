@@ -22,6 +22,7 @@ import {validateMilitaryTime} from "./index";
 describe('military time validator', () => {
     it.each([
         [ '01:12 - 14:32', true ],
+        [ '1:2 - 14:32', false ],
         [ '01:12  14:32', false ],
         [ '01:12 - 14:32 - 15:55', false ],
         [ '0112  14:32', false ],
