@@ -24,26 +24,11 @@ describe('military time validator', () => {
         [ '01:12 - 14:32', true ],
         [ '01:12  14:32', false ],
         [ '01:12 - 14:32 - 15:55', false ],
+        [ '0112  14:32', false ],
+        [ '01:12 - 1432', false ],
+        [ '0112 - 1432', false ],
     ])(`knows that "%s" should be: %s`, ( time , validity) => {
         const result = validateMilitaryTime(time)
         expect(result.valid).toBe(validity)
-    })
-
-    it('knows that range has valid startTime and endTime', () => {
-        const time = '01:12 - 14:32'
-        const result = validateMilitaryTime(time)
-        expect(result.valid).toBeTruthy();
-    })
-
-    it('knows that range has invalid startTime', () => {
-        const time = '0112 - 14:32'
-        const result = validateMilitaryTime(time)
-        expect(result.valid).toBeFalsy();
-    })
-
-    it('knows that range has invalid endTime', () => {
-        const time = '01:12 - 1432'
-        const result = validateMilitaryTime(time)
-        expect(result.valid).toBeFalsy();
     })
 })
