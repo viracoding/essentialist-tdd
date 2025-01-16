@@ -19,10 +19,10 @@ export function validateMilitaryTime(time: string): ResultType {
     const [ startTime, endTime ] = timeRange;
 
     const startTimeRange = startTime?.split(':') || [];
-    const [ startTimeHour, startTimeMinute ] = startTimeRange.map((t) => parseInt(t));
+    const [ startTimeHour, startTimeMinute ] = startTimeRange.map((t) => Number(t));
 
     const endTimeRange = endTime?.split(':') || [];
-    const [ endTimeHour, endTimeMinute ] = endTimeRange.map((t) => parseInt(t));
+    const [ endTimeHour, endTimeMinute ] = endTimeRange.map((t) => Number(t));
 
     if (timeRange.length !== 2) {
         errors.push(ErrorType.InputIsNotARange)
