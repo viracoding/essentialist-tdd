@@ -27,6 +27,8 @@ describe('military time validator', () => {
         [ '0112  14:32', false ],
         [ '01:12 - 1432', false ],
         [ '0112 - 1432', false ],
+        [ '', false ],
+        [ 'AA:AA - BB:BB', false ],
     ])(`knows that "%s" should be: %s`, ( time , validity) => {
         const result = validateMilitaryTime(time)
         expect(result.valid).toBe(validity)
