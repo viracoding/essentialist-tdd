@@ -31,4 +31,10 @@ describe('military time validator', () => {
         const result = validateMilitaryTime(time)
         expect(result.valid).toBeFalsy()
     })
+
+    it('knows that the input is not a valid range', () => {
+        const time = "01:12 - 14:32 - 15:55"
+        const result = validateMilitaryTime(time)
+        expect(result.valid).toBeFalsy()
+    })
 })
