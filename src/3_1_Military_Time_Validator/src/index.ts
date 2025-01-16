@@ -9,12 +9,16 @@ enum ErrorType {
 
 type ResultType = {
     valid: boolean;
-    error: ErrorType[];
+    errors: ErrorType[];
 }
 
 export function validateMilitaryTime(time: string): ResultType {
+    const errors: ErrorType[] = []
+    if (time.split('-').length !== 2) {
+        errors.push(ErrorType.InputIsNotARange)
+    }
     return {
-        valid: true,
-        error: []
+        valid: errors.length === 0,
+        errors
     }
 }
