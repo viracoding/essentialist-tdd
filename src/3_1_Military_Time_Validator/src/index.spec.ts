@@ -41,4 +41,12 @@ describe('military time validator', () => {
         const result = validateMilitaryTime(time)
         expect(result.valid).toBe(validity)
     })
+
+    it.each([
+        '23:12 - 21:32',
+        '01:44 - 01:32'
+    ])('knows that %s has chronological inconsistency', (time) => {
+        const result = validateMilitaryTime(time)
+        expect(result.valid).toBe(false)
+    })
 })
