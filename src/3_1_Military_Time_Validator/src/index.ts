@@ -24,11 +24,11 @@ export function validateMilitaryTime(time: string): ResultType {
     const endTimeRange = endTime?.split(':') || [];
     const [ endTimeHour, endTimeMinute ] = endTimeRange.map(Number);
 
-    if (startTimeRange[0]?.trim().length != 2 || endTimeRange[0]?.trim().length < 2) {
+    if (startTimeRange[0]?.trim().length != 2 || endTimeRange[0]?.trim().length != 2) {
         errors.push(ErrorType.HoursNotValid)
     }
 
-    if (startTimeRange[1]?.trim().length < 2 || endTimeRange[1]?.trim().length < 2) {
+    if (startTimeRange[1]?.trim().length != 2 || endTimeRange[1]?.trim().length != 2) {
         errors.push(ErrorType.MinutesNotValid)
     }
 
