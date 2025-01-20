@@ -5,5 +5,8 @@ describe('boolean calculator', () => {
         it('TRUE', () => {
             expect(BooleanCalculator.evaluate("TRUE")).toBeTruthy()
         })
+        it('FALSE', () => {
+            expect(BooleanCalculator.evaluate("FALSE")).toBeFalsy()
+        })
     })
 })
