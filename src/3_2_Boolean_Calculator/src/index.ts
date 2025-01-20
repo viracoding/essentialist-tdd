@@ -5,7 +5,7 @@ export class BooleanCalculator {
                 return expression.split(" ")[0] === "TRUE" && expression.split(" ")[2] === "TRUE";
             }
             if (expression.split(" ")[1] === "OR") {
-                return expression.split(" ")[0] === "TRUE" || expression.split(" ")[2] === "FALSE";
+                return expression.split(" ")[0] === "TRUE" || expression.split(" ")[2] === "TRUE";
             }
         }
         if (expression.split(" ").length === 2) {
