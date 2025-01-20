@@ -20,8 +20,7 @@ export class BooleanCalculator {
     private static or(left: boolean, right: boolean) {
         return left || right ? "TRUE" : "FALSE"
     }
-
-    public static evaluate(expression: string): boolean | undefined {
+    private static evaluateSimpleExpression(expression: string) {
         const expressionParts = expression.split(" ")
         while (expressionParts.length > 1) {
             const indexOfNot = expressionParts.indexOf("NOT")
@@ -46,6 +45,24 @@ export class BooleanCalculator {
                 continue
             }
         }
-        return this.isTrue(expressionParts[0])
+        return expressionParts[0]
+    }
+
+    public static evaluate(expression: string): boolean | undefined {
+        const startParen = expression.indexOf('(')
+        const endParen = expression.indexOf(')')
+        if (startParen !== -1 && endParen !== -1) {
+            const innerResult = this.evaluateSimpleExpression(
+                expression.substring(startParen + 1, endParen)
+            )
+            // Replace parentheses expression with its result and evaluate the whole thing
+            const newExpression =
+                expression.substring(0, startParen) +
+                innerResult +
+                expression.substring(endParen + 1)
+            return this.isTrue(this.evaluateSimpleExpression(newExpression))
+        }
+
+        return this.isTrue(this.evaluateSimpleExpression(expression))
     }
 }

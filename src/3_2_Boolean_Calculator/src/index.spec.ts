@@ -57,4 +57,12 @@ describe('boolean calculator', () => {
             expect(BooleanCalculator.evaluate(expression)).toBe(result)
         })
     })
+    describe('can evaluate expressions in paranthesis', () => {
+        it.each([
+            ["(TRUE OR TRUE OR TRUE) AND FALSE", false],
+            ["NOT (TRUE AND TRUE)", false]
+        ])('"%s" is %s' , (expression: string, result: boolean) => {
+            expect(BooleanCalculator.evaluate(expression)).toBe(result)
+        })
+    })
 })
