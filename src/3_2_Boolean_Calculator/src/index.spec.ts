@@ -14,4 +14,9 @@ describe('boolean calculator', () => {
             expect(BooleanCalculator.evaluate(input)).toBeUndefined()
         })
     })
+    describe('can evaluate the inverse of a single value', () => {
+        it('"NOT TRUE" as false ', () => {
+            expect(BooleanCalculator.evaluate("NOT TRUE")).toBeFalsy()
+        })
+    })
 })
