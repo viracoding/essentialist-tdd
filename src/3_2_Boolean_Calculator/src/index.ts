@@ -9,7 +9,12 @@ export class BooleanCalculator {
         return input === "TRUE"
     }
 
+    private static returnInverse(input: string) {
+        return !this.isTrue(input)
+    }
+
     public static evaluate(expression: string): boolean | undefined {
+        const expressionParts = expression.split(" ")
         if (expression.split(" ").length === 3) {
             if (expression.split(" ")[1] === "AND") {
                 return expression.split(" ")[0] === "TRUE" && expression.split(" ")[2] === "TRUE";
@@ -18,10 +23,8 @@ export class BooleanCalculator {
                 return expression.split(" ")[0] === "TRUE" || expression.split(" ")[2] === "TRUE";
             }
         }
-        if (expression.split(" ").length === 2) {
-            if (expression.split(" ")[0] === "NOT") {
-                return !this.isTrue(expression.split(" ")[1])
-            }
+        if (expressionParts.length === 2 && expressionParts[0] === "NOT") {
+            return this.returnInverse(expressionParts[1])
         }
         return this.isTrue(expression)
     }
