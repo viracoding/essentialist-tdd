@@ -11,7 +11,7 @@ describe('boolean calculator', () => {
         it.each([
             '', 'true', 'false', 'tru', 'fal', 'xyz'
         ])('"%s" is not a single value' , (input) => {
-            expect(BooleanCalculator.evaluate(input)).toBeUndefined()
+            expect(() => BooleanCalculator.evaluate(input)).toThrowError()
         })
     })
     describe('can evaluate the inverse of a single value', () => {
@@ -26,7 +26,7 @@ describe('boolean calculator', () => {
         it.each([
             '', 'NOT NOT', 'NOT fal', 'NOT tru', 'NOT xyz'
         ])('"%s" is not a valid single value inversion' , (input) => {
-            expect(BooleanCalculator.evaluate(input)).toBeUndefined()
+            expect(() =>  BooleanCalculator.evaluate(input)).toThrowError()
         })
     })
     describe('can evaluate two values with AND operator', () => {
