@@ -22,5 +22,11 @@ describe('boolean calculator', () => {
         it('"NOT FALSE" as true ', () => {
             expect(BooleanCalculator.evaluate("NOT FALSE")).toBeTruthy()
         })
+
+        it.each([
+            '', 'NOT NOT', 'NOT fal', 'NOT tru', 'NOT xyz'
+        ])('"%s" is not a valid single value inversion' , (input) => {
+            expect(BooleanCalculator.evaluate(input)).toBeUndefined()
+        })
     })
 })
