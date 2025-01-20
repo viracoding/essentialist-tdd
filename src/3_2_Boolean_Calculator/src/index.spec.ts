@@ -1,12 +1,17 @@
 import { BooleanCalculator } from "./index";
 
 describe('boolean calculator', () => {
-    describe('evaluates single values', () => {
-        it('TRUE', () => {
+    describe('can evaluate single values', () => {
+        it('recognizes "TRUE"', () => {
             expect(BooleanCalculator.evaluate("TRUE")).toBeTruthy()
         })
-        it('FALSE', () => {
+        it('recognizes "FALSE"', () => {
             expect(BooleanCalculator.evaluate("FALSE")).toBeFalsy()
+        })
+        it.each([
+            '', 'true', 'false', 'tru', 'fal', 'xyz'
+        ])('doesn\'t recognize any other single value such as "%s"' , (input) => {
+            expect(BooleanCalculator.evaluate(input)).toBeUndefined()
         })
     })
 })
