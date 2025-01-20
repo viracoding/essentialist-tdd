@@ -45,4 +45,16 @@ describe('boolean calculator', () => {
             expect(BooleanCalculator.evaluate('FALSE OR FALSE')).toBeFalsy()
         })
     })
+    describe('can evaluate more then two values', () => {
+        it.each([
+            ['TRUE OR FALSE OR TRUE', true],
+            ['TRUE OR FALSE AND TRUE', true],
+            ['TRUE AND TRUE AND TRUE', true],
+            ['TRUE OR TRUE OR TRUE AND FALSE', true],
+            ['TRUE AND TRUE AND TRUE', true],
+            ['TRUE OR FALSE AND NOT FALSE', true],
+        ])('"%s" is %s' , (expression: string, result: boolean) => {
+            expect(BooleanCalculator.evaluate(expression)).toBe(result)
+        })
+    })
 })
