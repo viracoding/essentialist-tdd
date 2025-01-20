@@ -2,15 +2,15 @@ import { BooleanCalculator } from "./index";
 
 describe('boolean calculator', () => {
     describe('can evaluate single values', () => {
-        it('recognizes "TRUE"', () => {
+        it('"TRUE" as true', () => {
             expect(BooleanCalculator.evaluate("TRUE")).toBeTruthy()
         })
-        it('recognizes "FALSE"', () => {
+        it('"FALSE" as false', () => {
             expect(BooleanCalculator.evaluate("FALSE")).toBeFalsy()
         })
         it.each([
             '', 'true', 'false', 'tru', 'fal', 'xyz'
-        ])('doesn\'t recognize any other single value such as "%s"' , (input) => {
+        ])('"%s" is not a single value' , (input) => {
             expect(BooleanCalculator.evaluate(input)).toBeUndefined()
         })
     })
