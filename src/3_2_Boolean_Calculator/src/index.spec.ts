@@ -37,4 +37,12 @@ describe('boolean calculator', () => {
             expect(BooleanCalculator.evaluate('TRUE AND TRUE')).toBeTruthy()
         })
     })
+    describe('can evaluate two values with OR operator', () => {
+        it('knows that if one of the variables is TRUE, to evaluate as true', () => {
+            expect(BooleanCalculator.evaluate('TRUE OR FALSE')).toBeTruthy()
+        })
+        it('knows that if both of the variables are FALSE, to evaluate as false', () => {
+            expect(BooleanCalculator.evaluate('FALSE OR FALSE')).toBeFalsy()
+        })
+    })
 })

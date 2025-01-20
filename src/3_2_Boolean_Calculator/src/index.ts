@@ -4,6 +4,9 @@ export class BooleanCalculator {
             if (expression.split(" ")[1] === "AND") {
                 return expression.split(" ")[0] === "TRUE" && expression.split(" ")[2] === "TRUE";
             }
+            if (expression.split(" ")[1] === "OR") {
+                return expression.split(" ")[0] === "TRUE" || expression.split(" ")[2] === "FALSE";
+            }
         }
         if (expression.split(" ").length === 2) {
             if (expression.split(" ")[0] === "NOT") {
