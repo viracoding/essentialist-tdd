@@ -1,4 +1,11 @@
+const AVAILABLE_VALUES = ['TRUE', 'FALSE']
+
 export class BooleanCalculator {
+
+    private static isTrue(input: string): boolean {
+        return input === "TRUE"
+    }
+
     public static evaluate(expression: string): boolean | undefined {
         if (expression.split(" ").length === 3) {
             if (expression.split(" ")[1] === "AND") {
@@ -17,12 +24,9 @@ export class BooleanCalculator {
                 }
             }
         }
-        if (expression === "TRUE") {
-            return true
-        } else if (expression === "FALSE") {
-            return false
-        } else {
+        if (!AVAILABLE_VALUES.includes(expression)) {
             return
         }
+        return this.isTrue(expression)
     }
 }
