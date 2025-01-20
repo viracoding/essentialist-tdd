@@ -29,4 +29,12 @@ describe('boolean calculator', () => {
             expect(BooleanCalculator.evaluate(input)).toBeUndefined()
         })
     })
+    describe('can evaluate two values with AND operator', () => {
+        it('knows that if one of the variables is FALSE, to evaluate as false', () => {
+            expect(BooleanCalculator.evaluate('TRUE AND FALSE')).toBeFalsy()
+        })
+        it('knows that if both of the variables are TRUE, to evaluate as true', () => {
+            expect(BooleanCalculator.evaluate('TRUE AND TRUE')).toBeTruthy()
+        })
+    })
 })
