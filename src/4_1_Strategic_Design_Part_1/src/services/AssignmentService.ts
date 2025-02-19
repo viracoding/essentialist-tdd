@@ -3,8 +3,8 @@ import {
     CreateAssignmentDTO,
     GradeAssignmentDTO,
     SubmitAssignmentDTO
-} from "../dto/assignment";
-import { GetByIdDTO } from "../dto";
+} from "../dtos/assignment";
+import { GetByIdDTO } from "../dtos";
 import { Database } from "../database";
 
 class StudentNotFoundException {
@@ -33,32 +33,32 @@ export class AssignmentService {
     public assignStudent = async (dto: AssignStudentDTO) => {
         const { studentId, assignmentId } = dto;
 
-        const student = this.db.existsStudent(studentId);
+        const student = await this.db.existsStudent(studentId);
 
         if (!student) {
             throw new StudentNotFoundException();
         }
 
-        const assignment = this.db.existsAssignment(assignmentId);
+        const assignment = await this.db.existsAssignment(assignmentId);
 
         if (!assignment) {
             throw new AssignmentNotFoundException();
         }
 
-       return this.db.saveStudentAssignment(assignmentId, studentId);
+       return await this.db.saveStudentAssignment(assignmentId, studentId);
     };
 
     public submit = async (dto: SubmitAssignmentDTO) => {
         const { id } = SubmitAssignmentDTO.fromRequest(dto);
 
         // check if student assignment exists
-        const studentAssignment = this.db.existsStudentAssignment(id);
+        const studentAssignment = await this.db.existsStudentAssignment(id);
 
         if (!studentAssignment) {
             throw new AssignmentNotFoundException();
         }
 
-        return this.db.submitStudentAssignment(id);
+        return await this.db.submitStudentAssignment(id);
     }
 
     public grade = async (dto: GradeAssignmentDTO) => {
@@ -70,13 +70,13 @@ export class AssignmentService {
         }
 
         // check if student assignment exists
-        const studentAssignment = this.db.existsStudentAssignment(id);
+        const studentAssignment = await this.db.existsStudentAssignment(id);
 
         if (!studentAssignment) {
             throw new AssignmentNotFoundException();
         }
 
-        return this.db.gradeStudentAssignment(id, grade);
+        return await this.db.gradeStudentAssignment(id, grade);
     }
 
     public getById = async (dto: GetByIdDTO)=> {

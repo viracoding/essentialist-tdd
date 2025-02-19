@@ -1,6 +1,6 @@
 import { Database } from "../database";
-import { AssignStudentDTO, CreateClassDTO } from "../dto/class";
-import { GetByIdDTO } from "../dto";
+import { AssignStudentDTO, CreateClassDTO } from "../dtos/class";
+import { GetByIdDTO } from "../dtos";
 
 class ClassNotFoundException {
     //     return res.status(404).json({ error: Errors.ClassNotFound, data: undefined, success: false });
@@ -15,7 +15,7 @@ export class ClassService {
     public create = async (dto: CreateClassDTO) => {
         const { name } = dto;
 
-        return this.db.saveClass(name);
+        return await this.db.saveClass(name);
     }
 
     public getAssignments = async (dto: GetByIdDTO)=> {
@@ -28,7 +28,7 @@ export class ClassService {
            throw new ClassNotFoundException();
         }
 
-        return this.db.getAssignmentByClass(id);
+        return await this.db.getAssignmentByClass(id);
     }
 
     public assignStudent = async (dto: AssignStudentDTO) => {
@@ -57,6 +57,6 @@ export class ClassService {
             throw new ClassNotFoundException();
         }
 
-        return this.db.enrollStudent(studentId, classId);
+        return await this.db.enrollStudent(studentId, classId);
     }
 }

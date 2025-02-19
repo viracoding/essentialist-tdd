@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Errors, parseForResponse } from '../index';
-import { AssignStudentDTO, CreateClassDTO } from "../dto/class";
-import { GetByIdDTO } from "../dto";
+import { AssignStudentDTO, CreateClassDTO } from "../dtos/class";
+import { GetByIdDTO } from "../dtos";
 import { ClassService } from "../services";
 
 export class ClassController {

@@ -1,6 +1,6 @@
 import { Database } from "../database";
-import { CreateStudentDTO } from "../dto/student";
-import { GetByIdDTO } from "../dto";
+import { CreateStudentDTO } from "../dtos/student";
+import { GetByIdDTO } from "../dtos";
 
 class StudentNotFoundException {
     // StudentNotFound
@@ -15,14 +15,14 @@ export class StudentService {
     public create = async (dto: CreateStudentDTO) => {
         const { name } = dto;
 
-        return this.db.saveStudent(name);
+        return await this.db.saveStudent(name);
     }
     public getAll = async () => {
-        return this.db.getAllStudents();
+        return await this.db.getAllStudents();
     }
     public getById = async (dto: GetByIdDTO) => {
         const { id } = dto;
-        const student = this.db.getStudentById(id);
+        const student = await this.db.getStudentById(id);
 
         if (!student) {
             throw new StudentNotFoundException();
@@ -33,27 +33,27 @@ export class StudentService {
         const { id } = dto
 
         // check if student exists
-        const student = this.db.existsStudent(id);
+        const student = await this.db.existsStudent(id);
 
         if (!student) {
             throw new StudentNotFoundException();
             // Errors.StudentNotFound
         }
 
-        return this.db.getStudentAssignments(id);
+        return await this.db.getStudentAssignments(id);
 
     }
     public getGrades = async (dto: GetByIdDTO) => {
         const { id } = dto;
 
         // check if student exists
-        const student = this.db.existsStudent(id);
+        const student = await this.db.existsStudent(id);
 
         if (!student) {
             throw new StudentNotFoundException();
         }
 
-        return this.db.getStudentGrades(id);
+        return await this.db.getStudentGrades(id);
     }
 
 }

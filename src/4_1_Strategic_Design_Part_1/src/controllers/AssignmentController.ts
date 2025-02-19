@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Errors, parseForResponse } from '../index';
-import { CreateAssignmentDTO, AssignStudentDTO, SubmitAssignmentDTO, GradeAssignmentDTO } from '../dto/assignment'
-import { GetByIdDTO } from "../dto";
+import { CreateAssignmentDTO, AssignStudentDTO, SubmitAssignmentDTO, GradeAssignmentDTO } from '../dtos/assignment'
+import { GetByIdDTO } from "../dtos";
 import { AssignmentService } from "../services";
 
 
