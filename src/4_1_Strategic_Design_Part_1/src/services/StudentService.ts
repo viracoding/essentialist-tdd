@@ -1,4 +1,4 @@
-import { prisma } from "../database";
+import { Database } from "../database";
 import { CreateStudentDTO } from "../dto/student";
 import { GetByIdDTO } from "../dto";
 
@@ -7,41 +7,22 @@ class StudentNotFoundException {
 }
 
 export class StudentService {
-    constructor() { }
+    private db: Database;
+    constructor(db: Database) {
+        this.db = db;
+    }
 
     public create = async (dto: CreateStudentDTO) => {
         const { name } = dto;
 
-        return prisma.student.create({
-            data: {
-                name
-            }
-        });
+        return this.db.saveStudent(name);
     }
     public getAll = async () => {
-        return prisma.student.findMany({
-            include: {
-                classes: true,
-                assignments: true,
-                reportCards: true
-            },
-            orderBy: {
-                name: 'asc'
-            }
-        });
+        return this.db.getAllStudents();
     }
     public getById = async (dto: GetByIdDTO) => {
         const { id } = dto;
-        const student = await prisma.student.findUnique({
-            where: {
-                id
-            },
-            include: {
-                classes: true,
-                assignments: true,
-                reportCards: true
-            }
-        });
+        const student = this.db.getStudentById(id);
 
         if (!student) {
             throw new StudentNotFoundException();
@@ -52,54 +33,27 @@ export class StudentService {
         const { id } = dto
 
         // check if student exists
-        const student = await prisma.student.findUnique({
-            where: {
-                id
-            }
-        });
+        const student = this.db.existsStudent(id);
 
         if (!student) {
             throw new StudentNotFoundException();
             // Errors.StudentNotFound
         }
 
-        return prisma.studentAssignment.findMany({
-            where: {
-                studentId: id,
-                status: 'submitted'
-            },
-            include: {
-                assignment: true
-            },
-        });
+        return this.db.getStudentAssignments(id);
 
     }
     public getGrades = async (dto: GetByIdDTO) => {
         const { id } = dto;
 
         // check if student exists
-        const student = await prisma.student.findUnique({
-            where: {
-                id
-            }
-        });
+        const student = this.db.existsStudent(id);
 
         if (!student) {
             throw new StudentNotFoundException();
         }
 
-        return prisma.studentAssignment.findMany({
-            where: {
-                studentId: id,
-                status: 'submitted',
-                grade: {
-                    not: null
-                }
-            },
-            include: {
-                assignment: true
-            },
-        });
+        return this.db.getStudentGrades(id);
     }
 
 }

@@ -5,7 +5,7 @@ import {
     SubmitAssignmentDTO
 } from "../dto/assignment";
 import { GetByIdDTO } from "../dto";
-import { prisma } from "../database";
+import { Database } from "../database";
 
 class StudentNotFoundException {
     //     return res.status(404).json({ error: Errors.StudentNotFound, data: undefined, success: false });
@@ -20,71 +20,45 @@ class ValidationNotValidException {
 }
 
 export class AssignmentService {
+    private db: Database;
+    constructor () {
+        this.db = new Database();
+    }
 
     public create = async (dto: CreateAssignmentDTO) => {
         const { classId, title } = dto;
-        return prisma.assignment.create({
-            data: {
-                classId,
-                title
-            }
-        });
+        return await this.db.saveAssignment(classId, title);
     }
 
     public assignStudent = async (dto: AssignStudentDTO) => {
         const { studentId, assignmentId } = dto;
 
-        const student = await prisma.student.findUnique({
-            where: {
-                id: studentId
-            }
-        });
+        const student = this.db.existsStudent(studentId);
 
         if (!student) {
             throw new StudentNotFoundException();
         }
 
-        const assignment = await prisma.assignment.findUnique({
-            where: {
-                id: assignmentId
-            }
-        });
+        const assignment = this.db.existsAssignment(assignmentId);
 
         if (!assignment) {
             throw new AssignmentNotFoundException();
         }
 
-        return prisma.studentAssignment.create({
-                data: {
-                    assignmentId,
-                    studentId
-                }
-            }
-        );
+       return this.db.saveStudentAssignment(assignmentId, studentId);
     };
 
     public submit = async (dto: SubmitAssignmentDTO) => {
         const { id } = SubmitAssignmentDTO.fromRequest(dto);
 
         // check if student assignment exists
-        const studentAssignment = await prisma.studentAssignment.findUnique({
-            where: {
-                id
-            }
-        });
+        const studentAssignment = this.db.existsStudentAssignment(id);
 
         if (!studentAssignment) {
             throw new AssignmentNotFoundException();
         }
 
-        return prisma.studentAssignment.update({
-            where: {
-                id
-            },
-            data: {
-                status: 'submitted'
-            }
-        });
+        return this.db.submitStudentAssignment(id);
     }
 
     public grade = async (dto: GradeAssignmentDTO) => {
@@ -96,41 +70,24 @@ export class AssignmentService {
         }
 
         // check if student assignment exists
-        const studentAssignment = await prisma.studentAssignment.findUnique({
-            where: {
-                id
-            }
-        });
+        const studentAssignment = this.db.existsStudentAssignment(id);
 
         if (!studentAssignment) {
             throw new AssignmentNotFoundException();
         }
 
-        return prisma.studentAssignment.update({
-            where: {
-                id
-            },
-            data: {
-                grade,
-            }
-        });
+        return this.db.gradeStudentAssignment(id, grade);
     }
 
     public getById = async (dto: GetByIdDTO)=> {
         const { id } = dto;
 
-        const assignment = await prisma.assignment.findUnique({
-            include: {
-                class: true,
-                studentTasks: true
-            },
-            where: {
-                id
-            }
-        });
+        const assignment = await this.db.getAssignmentById(id);
 
         if (!assignment) {
             throw new AssignmentNotFoundException();
         }
+
+        return assignment;
     }
 }
