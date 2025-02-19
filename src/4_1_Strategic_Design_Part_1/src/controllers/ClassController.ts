@@ -2,13 +2,12 @@ import { Request, Response } from 'express';
 import { Errors, parseForResponse } from '../index';
 import { AssignStudentDTO, CreateClassDTO } from "../dto/class";
 import { GetByIdDTO } from "../dto";
-import { ClassService } from "../services/ClassService";
+import { ClassService } from "../services";
 
 export class ClassController {
     private classService: ClassService;
-
-    constructor () {
-        this.classService = new ClassService();
+    constructor (classService: ClassService) {
+        this.classService = classService;
     }
 
     public create = async (req: Request, res: Response) => {

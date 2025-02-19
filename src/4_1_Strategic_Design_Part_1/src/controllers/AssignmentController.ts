@@ -2,13 +2,13 @@ import { Request, Response } from 'express';
 import { Errors, parseForResponse } from '../index';
 import { CreateAssignmentDTO, AssignStudentDTO, SubmitAssignmentDTO, GradeAssignmentDTO } from '../dto/assignment'
 import { GetByIdDTO } from "../dto";
-import { AssignmentService } from "../services/AssignmentService";
+import { AssignmentService } from "../services";
 
 
 export class AssignmentController {
     private assignmentService: AssignmentService;
-    constructor () {
-        this.assignmentService = new AssignmentService();
+    constructor (assignmentService: AssignmentService) {
+        this.assignmentService = assignmentService;
     }
 
     public create = async (req: Request, res: Response) => {

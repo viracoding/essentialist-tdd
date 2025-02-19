@@ -1,14 +1,23 @@
 import express from 'express';
+import { Database } from "./database";
 import { AssignmentController, ClassController, StudentController } from "./controllers/";
+import { AssignmentService, ClassService, StudentService } from "./services";
 
 const cors = require('cors');
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-const studentController = new StudentController();
-const classController = new ClassController();
-const assignmentController = new AssignmentController();
+const database = new Database();
+
+const studentService = new StudentService(database);
+const studentController = new StudentController(studentService);
+
+const classService = new ClassService(database);
+const classController = new ClassController(classService);
+
+const assignmentService = new AssignmentService(database);
+const assignmentController = new AssignmentController(assignmentService);
 
 
 export const Errors = {

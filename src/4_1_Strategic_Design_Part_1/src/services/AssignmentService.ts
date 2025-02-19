@@ -21,8 +21,8 @@ class ValidationNotValidException {
 
 export class AssignmentService {
     private db: Database;
-    constructor () {
-        this.db = new Database();
+    constructor (db: Database) {
+        this.db = db;
     }
 
     public create = async (dto: CreateAssignmentDTO) => {

@@ -8,7 +8,7 @@ class StudentNotFoundException {
 
 export class StudentService {
     private db: Database;
-    constructor(db: Database) {
+    constructor (db: Database) {
         this.db = db;
     }
 
