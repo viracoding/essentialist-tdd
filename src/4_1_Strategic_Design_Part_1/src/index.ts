@@ -1,4 +1,5 @@
 import express from 'express';
+import { PrismaClient } from '@prisma/client';
 import { Database } from "./database";
 import { AssignmentController, ClassController, StudentController } from "./controllers/";
 import { AssignmentService, ClassService, StudentService } from "./services";
@@ -8,7 +9,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const database = new Database();
+
+const prisma = new PrismaClient();
+
+const database = new Database(prisma);
 
 const studentService = new StudentService(database);
 const studentController = new StudentController(studentService);
