@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { Database } from "./database";
-import { Server } from './server'
+import { Application } from './server'
 import { AssignmentController, ClassController, StudentController } from "./controllers/";
 import { AssignmentService, ClassService, StudentService } from "./services";
 import {ErrorExceptionHandler} from "./errorExceptionHandler";
@@ -20,10 +20,10 @@ const classController = new ClassController(classService, exceptionHandler);
 const assignmentService = new AssignmentService(database);
 const assignmentController = new AssignmentController(assignmentService, exceptionHandler);
 
-const server = new Server(
+const application = new Application(
     studentController,
     classController,
     assignmentController
 );
 
-export default server;
+export default application;

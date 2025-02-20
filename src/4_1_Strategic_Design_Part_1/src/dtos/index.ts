@@ -1,5 +1,5 @@
-import {isMissingKeys, isUUID} from "../helper";
-import {InvalidRequestBodyException} from "../controllers";
+import { isMissingKeys, isUUID } from "../helper";
+import { InvalidRequestBodyException } from "../exceptions";
 
 class GetByIdDTO {
     constructor(public id: string) {}

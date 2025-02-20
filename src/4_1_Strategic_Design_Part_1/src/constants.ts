@@ -6,7 +6,8 @@ const ErrorExceptionType = {
     ServerError: 'ServerError',
     ClientError: 'ClientError',
     StudentAlreadyEnrolled: 'StudentAlreadyEnrolled',
-    StudentAssignmentNotFoundException: 'StudentAssignmentNotFoundException'
+    StudentAssignmentNotFoundException: 'StudentAssignmentNotFoundException',
+    InvalidRequestBodyException: 'InvalidRequestBodyException'
 }
 
 export default ErrorExceptionType;

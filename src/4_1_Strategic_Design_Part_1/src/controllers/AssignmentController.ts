@@ -14,11 +14,15 @@ export class AssignmentController {
         private errorHandler: ErrorExceptionHandler
     ) {
         this.router = express.Router();
-        this.routes();
+        this.setupRoutes();
         this.setupErrorHandler();
     }
 
-    private routes() {
+    getRouter() {
+        return this.router;
+    }
+
+    private setupRoutes() {
         // POST assignment created
         this.router.post('/assignments', this.create);
         // GET assignment by id

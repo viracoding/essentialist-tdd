@@ -2,9 +2,8 @@ import express, { Express } from 'express';
 import { AssignmentController, ClassController, StudentController } from "./controllers";
 const cors = require('cors');
 
-export class Server {
+export class Application {
     private app: Express;
-    private server: any;
     constructor(private studentController :StudentController,
                 private classController: ClassController,
                 private assignmentController: AssignmentController) {
@@ -14,7 +13,7 @@ export class Server {
     }
 
     public start(port: number) {
-        this.server = this.app.listen(port, () => {
+        this.app.listen(port, () => {
             console.log(`Server is running on port ${port}`);
         });
     }

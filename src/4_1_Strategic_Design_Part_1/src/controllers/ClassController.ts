@@ -13,11 +13,15 @@ export class ClassController {
         private errorHandler: ErrorExceptionHandler
    ) {
         this.router = express.Router();
-        this.routes();
+        this.setupRoutes();
         this.setupErrorHandler();
     }
 
-    private routes() {
+    getRouter() {
+        return this.router;
+    }
+
+    private setupRoutes() {
         // POST class created
         this.router.post('/classes', this.create);
         // GET all assignments for class

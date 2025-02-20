@@ -1,5 +1,5 @@
-import {isMissingKeys} from "../helper";
-import {InvalidRequestBodyException} from "../controllers";
+import { isMissingKeys } from "../helper";
+import { InvalidRequestBodyException } from "../exceptions";
 
 class CreateStudentDTO {
     constructor(public name: string) {}

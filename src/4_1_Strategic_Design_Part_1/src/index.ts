@@ -1,5 +1,5 @@
-import server from "./bootstrap";
+import application from "./bootstrap";
 
 const port = Number(process.env.PORT || 3000);
 
-server.start(port);
+application.start(port);

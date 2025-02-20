@@ -13,11 +13,15 @@ export class StudentController {
         private errorHandler: ErrorExceptionHandler
     ) {
         this.router = express.Router();
-        this.routes();
+        this.setupRoutes();
         this.setupErrorHandler();
     }
 
-    private routes() {
+    getRouter() {
+        return this.router;
+    }
+
+    private setupRoutes() {
         // POST student created
         this.router.post('/students', this.create);
         // GET all students

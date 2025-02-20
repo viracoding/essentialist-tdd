@@ -1,5 +1,5 @@
-import { isMissingKeys, isUUID } from "../helper";
-import { InvalidRequestBodyException } from "../controllers";
+import { isMissingKeys } from "../helper";
+import {InvalidRequestBodyException} from "../exceptions";
 
 class CreateAssignmentDTO {
     constructor(public classId: string, public title: string) {}
