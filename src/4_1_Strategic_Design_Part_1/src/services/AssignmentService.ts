@@ -6,24 +6,10 @@ import {
 } from "../dtos/assignment";
 import { GetByIdDTO } from "../dtos";
 import { Database } from "../database";
-
-class StudentNotFoundException {
-    //     return res.status(404).json({ error: Errors.StudentNotFound, data: undefined, success: false });
-}
-
-class AssignmentNotFoundException {
-    //     return res.status(404).json({ error: Errors.AssignmentNotFound, data: undefined, success: false });
-}
-
-class ValidationNotValidException {
-//                 return res.status(400).json({ error: Errors.ValidationError, data: undefined, success: false });
-}
+import {AssignmentNotFoundException, GradeNotValidException, StudentNotFoundException} from "../exceptions";
 
 export class AssignmentService {
-    private db: Database;
-    constructor (db: Database) {
-        this.db = db;
-    }
+    constructor (private db: Database) {}
 
     public create = async (dto: CreateAssignmentDTO) => {
         const { classId, title } = dto;
@@ -65,8 +51,9 @@ export class AssignmentService {
         const { id, grade } = dto;
 
         // validate grade
-        if (!['A', 'B', 'C', 'D'].includes(grade)) {
-            throw new ValidationNotValidException();
+        const validGrades = ['A', 'B', 'C', 'D'];
+        if (!validGrades.includes(grade)) {
+            throw new GradeNotValidException(validGrades);
         }
 
         // check if student assignment exists

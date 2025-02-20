@@ -1,16 +1,10 @@
 import { Database } from "../database";
 import { AssignStudentDTO, CreateClassDTO } from "../dtos/class";
 import { GetByIdDTO } from "../dtos";
-
-class ClassNotFoundException {
-    //     return res.status(404).json({ error: Errors.ClassNotFound, data: undefined, success: false });
-}
+import {ClassNotFoundException, StudentAlreadyEnrolledException, StudentNotFoundException} from "../exceptions";
 
 export class ClassService {
-    private db: Database;
-    constructor (db: Database) {
-        this.db = db;
-    }
+    constructor (private db: Database) {}
 
     public create = async (dto: CreateClassDTO) => {
         const { name } = dto;
@@ -25,7 +19,7 @@ export class ClassService {
         const cls = await this.db.existsClass(id);
 
         if (!cls) {
-           throw new ClassNotFoundException();
+           throw new ClassNotFoundException(id);
         }
 
         return await this.db.getAssignmentByClass(id);
@@ -38,23 +32,21 @@ export class ClassService {
         const student = await this.db.existsStudent(studentId);
 
         if (!student) {
-            throw new ClassNotFoundException()
-        //     StudentNotFound
+            throw new StudentNotFoundException()
         }
 
         // check if class exists
         const cls = await this.db.existsClass(classId);
 
+        if (!cls) {
+            throw new ClassNotFoundException(classId);
+        }
+
         // check if student is already enrolled in class
         const duplicatedClassEnrollment = await this.db.isStudentEnrolledInClass(studentId, classId);
 
         if (duplicatedClassEnrollment) {
-            // StudentAlreadyEnrolled
-            throw new ClassNotFoundException();
-        }
-
-        if (!cls) {
-            throw new ClassNotFoundException();
+            throw new StudentAlreadyEnrolledException();
         }
 
         return await this.db.enrollStudent(studentId, classId);

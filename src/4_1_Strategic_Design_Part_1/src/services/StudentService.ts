@@ -1,16 +1,10 @@
 import { Database } from "../database";
 import { CreateStudentDTO } from "../dtos/student";
 import { GetByIdDTO } from "../dtos";
-
-class StudentNotFoundException {
-    // StudentNotFound
-}
+import {StudentNotFoundException} from "../exceptions";
 
 export class StudentService {
-    private db: Database;
-    constructor (db: Database) {
-        this.db = db;
-    }
+    constructor (private db: Database) {}
 
     public create = async (dto: CreateStudentDTO) => {
         const { name } = dto;
@@ -37,7 +31,6 @@ export class StudentService {
 
         if (!student) {
             throw new StudentNotFoundException();
-            // Errors.StudentNotFound
         }
 
         return await this.db.getStudentAssignments(id);

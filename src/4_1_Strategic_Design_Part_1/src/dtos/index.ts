@@ -1,4 +1,4 @@
-import {isMissingKeys, isUUID} from "../index";
+import {isMissingKeys, isUUID} from "../helper";
 import {InvalidRequestBodyException} from "../controllers";
 
 class GetByIdDTO {

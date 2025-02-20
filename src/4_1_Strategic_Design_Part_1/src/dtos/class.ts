@@ -1,4 +1,4 @@
-import {isMissingKeys} from "../index";
+import {isMissingKeys} from "../helper";
 import {InvalidRequestBodyException} from "../controllers";
 
 class CreateClassDTO {
